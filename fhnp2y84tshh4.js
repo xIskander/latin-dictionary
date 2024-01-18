@@ -1,1 +1,43 @@
-function smoothScroll(e){var t=document.querySelector(e).offsetTop;window.scrollTo({top:t,behavior:"smooth"})}function stickyHeader(){var e=document.getElementById("stickyHeader"),t=document.getElementById("section1");window.pageYOffset>=t.offsetTop?e.style.display="block":e.style.display="none"}function searchWord(){var e=document.getElementById("searchInput").value.toLowerCase(),t=document.getElementById("content").innerHTML.replace(/<strong class="highlight">(.*?)<\/strong>/gi,"$1").replace(new RegExp("(<strong>.*?</strong>)","ig"),(function(t){return t.replace(new RegExp("("+e+")","ig"),'<strong class="highlight">$1</strong>')}));document.getElementById("content").innerHTML=t;var o=document.querySelector(".highlight");o&&o.scrollIntoView({behavior:"smooth"})}window.onscroll=function(){stickyHeader()};
+function smoothScroll(target) {
+    var element = document.querySelector(target);
+    var position = element.offsetTop;
+    window.scrollTo({
+    top: position,
+    behavior: 'smooth'
+    });
+  }
+  
+  window.onscroll = function() { stickyHeader() };
+
+  function stickyHeader() {
+      var header = document.getElementById("stickyHeader");
+      var section = document.getElementById("section1"); 
+
+      if (window.pageYOffset >= section.offsetTop) {
+          header.style.display = "block";
+      } else {
+          header.style.display = "none";
+      }
+  }
+
+  function searchWord() {
+    var searchInput = document.getElementById("searchInput").value.toLowerCase();
+    var content = document.getElementById("content").innerHTML;
+    var unhighlightedContent = content.replace(/<strong class="highlight">(.*?)<\/strong>/ig, '$1');
+    var newContent = unhighlightedContent.replace(new RegExp('(<strong>.*?</strong>)', 'ig'), function(match) {
+      return match.replace(new RegExp('(' + searchInput + ')', 'ig'), '<strong class="highlight">$1</strong>');
+    });
+  
+    document.getElementById("content").innerHTML = newContent;
+  
+    var highlightedElement = document.querySelector('.highlight');
+    if (highlightedElement) {
+      var scrollOptions = {
+        behavior: 'smooth',
+        block: 'center', // Scroll to the center of the element
+        inline: 'center'
+      };
+      highlightedElement.scrollIntoView(scrollOptions);
+    }
+  }
+  
