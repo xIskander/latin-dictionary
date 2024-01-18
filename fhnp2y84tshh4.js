@@ -1,0 +1,1 @@
+function smoothScroll(o){o=document.querySelector(o).offsetTop;window.scrollTo({top:o,behavior:"smooth"})}function stickyHeader(){var o=document.getElementById("stickyHeader"),e=document.getElementById("section1");window.pageYOffset>=e.offsetTop?o.style.display="block":o.style.display="none"}window.onscroll=function(){stickyHeader()};
